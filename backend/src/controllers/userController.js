@@ -14,6 +14,7 @@ module.exports = {
     }
   },
   getUser : async (req,res)=>{
+    console.log("req " , req)
     if(req.authenticated){
       console.log(" id of user is " , req.userId);
       const user = await users.findById(req.userId);

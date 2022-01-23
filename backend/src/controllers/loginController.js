@@ -6,6 +6,7 @@ const {createTokens} = require("../middlewares/JWT");
 module.exports = {
   loginUser : async (req,res)=>
   {
+    console.log("req " , req.body);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({
@@ -23,11 +24,11 @@ module.exports = {
       const dbPassword = user.password;
       if (bcrypt.compareSync(password, dbPassword)) {
         const accessToken = createTokens(user);
-        res.cookie("access-token",accessToken,{
-          maxAge: 60*60*24*30*1000,
-          httpOnly: true,
-        });
-        res.status(201).send({message:"loged in", status:true});
+        // res.cookie("access-token",accessToken,{
+        //   maxAge: 60*60*24*30*1000,
+        //   httpOnly: true,
+        // });
+        res.status(201).send({message:"loged in", status:true , role:user.role , accesstoken:accessToken});
       } else {
         res.status(400).send({error:"User email and password combination doesn't match" , status: false});
       }

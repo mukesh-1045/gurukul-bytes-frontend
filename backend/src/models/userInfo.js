@@ -32,29 +32,8 @@ var users = new schema({
         required: true
     },
     address: {
-      detail: {
-        type: String,
-        required: true
-      },
-      country:{
         type:String,
-        required: true
-      },
-      state:{
-        type:String,
-        required: true
-      },
-      pincode:{
-        type:String,
-        required: true
-      },
-      city:{
-        type:String,
-        required: true
-      },
-      landmark:{
-        type:String,
-      },
+        required:true
     },
     gender: {
         type: String,
@@ -65,3 +44,27 @@ var users = new schema({
 );
 var user = mongoose.model('user', users)
 module.exports = user;
+
+// detail: {
+//         type: String,
+//         required: true
+//       },
+//       country:{
+//         type:String,
+//         required: true
+//       },
+//       state:{
+//         type:String,
+//         required: true
+//       },
+//       pincode:{
+//         type:String,
+//         required: true
+//       },
+//       city:{
+//         type:String,
+//         required: true
+//       },
+//       landmark:{
+//         type:String,
+//       },

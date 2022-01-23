@@ -6,6 +6,7 @@ const saltRounds = bcrypt.genSaltSync(10);
 
 module.exports = {
   saveUser : (req,res)=>{
+    console.log("req body " , req.body);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({
