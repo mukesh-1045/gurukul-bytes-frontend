@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 import axios from "axios";
 import useFullPageLoader from "../../hooks/useFullPageLoader";
 import { TableHeader, Pagination, Search } from "../../ui/DataTable";
+import IdleTimerContainer from "../../utils/IdleTimerContainer";
 
 const Home = () => {
   const [loader, showLoader, hideLoader] = useFullPageLoader();
@@ -86,6 +87,7 @@ const Home = () => {
 
   return (
     <div>
+      <IdleTimerContainer></IdleTimerContainer>
       <header>
         <h1>WELCOME ADMIN</h1>
         <button className={classes.logout} onClick={handleClick}>Logout</button>

@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
-import classes from "./home.module.css"
-import { useNavigate } from "react-router-dom"
+import classes from "./home.module.css";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import useFullPageLoader from "../../hooks/useFullPageLoader";
+import IdleTimerContainer from "../../utils/IdleTimerContainer";
 
 const Home = () => {
+  const [isTimeout, setIsTimeout] = useState(false);
   const [loader, showLoader, hideLoader] = useFullPageLoader();
   const navigate = useNavigate();
   const [data, setData] = useState({});
 
   useEffect((e) => {
+
     showLoader();
     let techStack = localStorage.getItem("access");
     if (!techStack) {
@@ -27,6 +30,7 @@ const Home = () => {
       })
       .catch((err) => {
       });
+
   }, [navigate]);
 
   const handleClick = (e) => {
@@ -36,6 +40,7 @@ const Home = () => {
 
   return (
     <div>
+      <IdleTimerContainer></IdleTimerContainer>
       <header>
         <h1>WELCOME {data.firstName} {data.lastName}</h1>
         <button className={classes.logout} onClick={handleClick}>Logout</button>
