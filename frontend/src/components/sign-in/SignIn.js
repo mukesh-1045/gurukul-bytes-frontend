@@ -14,19 +14,20 @@ const SignIn = () => {
     const handleChanges = async (event) => {
         event.preventDefault();
         axios
-            .post(`${process.env.REACT_APP_BACKEND_URL}/login`, form )
+            .post(`${process.env.REACT_APP_BACKEND_URL}/login`, form)
             .then((res) => {
-                console.log(res);
-                localStorage.setItem("access",  res.data.accesstoken);
-                if(res.data.role === "user"){  
+                localStorage.setItem("access", res.data.accesstoken);
+                if (res.data.status === false) {
+                    return alert("Please Enter Correct Email and Password");
+                }
+                if (res.data.role === "user") {
                     navigate('/home');
                 }
-                if(res.data.role === "admin"){
-
+                if (res.data.role === "admin") {
+                    navigate('/dashboard');
                 }
             })
             .catch((err) => {
-                console.log(err);
                 alert("Please Enter Correct Email and Password");
             });
 

@@ -5,8 +5,7 @@ const users = require("../models/userInfo");
 const saltRounds = bcrypt.genSaltSync(10);
 
 module.exports = {
-  saveUser : (req,res)=>{
-    console.log("req body " , req.body);
+  saveUser: (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({
@@ -14,14 +13,12 @@ module.exports = {
       });
     }
     let userDetails = req.body;
-    userDetails.password = bcrypt.hashSync(userDetails.password,saltRounds);
+    userDetails.password = bcrypt.hashSync(userDetails.password, saltRounds);
     const user = new users(userDetails);
-    user.save().then((result)=>{
-      console.log("user is saved " + result);
-      res.status(201).send({message:"User is saved ", status:true});
-    }).catch((err)=>{
-      console.log("error while saving user " + err);
-      res.status(400).send({message:"User failed to be saved cause email already exists", status:false});
+    user.save().then((result) => {
+      res.status(201).send({ message: "User is saved ", status: true });
+    }).catch((err) => {
+      res.status(400).send({ message: "User failed to be saved cause email already exists", status: false });
     });
   },
 }
