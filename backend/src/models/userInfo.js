@@ -39,6 +39,9 @@ var users = new schema({
         type: String,
         required: true
     },
+    userCount: {
+        type: Number
+    }
 },
     { timestamps: true }
 );

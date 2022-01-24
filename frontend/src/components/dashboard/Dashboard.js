@@ -30,14 +30,14 @@ const Home = () => {
     const getData = () => {
 
       showLoader();
-      let techStack = localStorage.getItem("access");
-      if (!techStack) {
+      let accessToken = localStorage.getItem("access");
+      if (!accessToken) {
         navigate('/');
       }
       axios
         .get(`${process.env.REACT_APP_BACKEND_URL}/getAllUser`, {
           params: {
-            access: techStack
+            access: accessToken
           }
         })
         .then((res) => {
@@ -81,8 +81,19 @@ const Home = () => {
   }, [comments, currentPage, search, sorting]);
 
   const handleClick = (e) => {
-    localStorage.removeItem("access");
-    navigate('/');
+    let accessToken = localStorage.getItem("access");
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_URL}/logout`, {
+        params: {
+          access: accessToken
+        }
+      })
+      .then((res) => {
+        localStorage.removeItem("access");
+        navigate('/');
+      })
+      .catch((err) => {
+      });
   };
 
   return (

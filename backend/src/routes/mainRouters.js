@@ -2,7 +2,7 @@ const express = require('express');
 const app = new express.Router();
 const cookieParser = require("cookie-parser");
 const { check } = require('express-validator');
-const {validateToken} = require("../middlewares/JWT");
+const { validateToken } = require("../middlewares/JWT");
 
 const registerController = require("../controllers/registerController");
 const loginController = require("../controllers/loginController");
@@ -32,8 +32,8 @@ app.post("/register",
     check("emailId", "Please enter a valid email").isEmail(),
     check("password", "Please enter a valid password").isLength({
       min: 6
-     })
-  ], 
+    })
+  ],
   registerController.saveUser
 );
 
@@ -48,8 +48,8 @@ app.post("/login",
   loginController.loginUser
 );
 
-app.get("/profile",validateToken,userController.getUser);
-
-app.get("/getAllUser",validateToken , userController.getAllUser);
+app.get("/profile", validateToken, userController.getUser);
+app.get("/logout", validateToken, loginController.logout);
+app.get("/getAllUser", validateToken, userController.getAllUser);
 
 module.exports = app;

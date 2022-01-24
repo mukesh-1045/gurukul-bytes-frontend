@@ -18,7 +18,11 @@ const SignIn = () => {
             .then((res) => {
                 localStorage.setItem("access", res.data.accesstoken);
                 if (res.data.status === false) {
-                    return alert("Please Enter Correct Email and Password");
+                    if (res.data.userCount) {
+                        return alert(res.data.message);
+                    } else {
+                        return alert("Please Enter Correct Email and Password");
+                    }
                 }
                 if (res.data.role === "user") {
                     navigate('/home');

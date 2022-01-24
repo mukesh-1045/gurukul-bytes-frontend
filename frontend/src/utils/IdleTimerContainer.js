@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import IdleTimer from "react-idle-timer";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function IdleTimerContainer() {
@@ -7,8 +8,19 @@ function IdleTimerContainer() {
   const navigate = useNavigate();
 
   const onIdle = () => {
-    localStorage.removeItem("access");
-    navigate('/');
+    let accessToken = localStorage.getItem("access");
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_URL}/logout`, {
+        params: {
+          access: accessToken
+        }
+      })
+      .then((res) => {
+        localStorage.removeItem("access");
+        navigate('/');
+      })
+      .catch((err) => {
+      });
   };
 
 
