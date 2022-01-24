@@ -14,7 +14,6 @@ module.exports = {
     }
   },
   getUser: async (req, res) => {
-    console.log("req ", req)
     if (req.authenticated) {
       const user = await users.findById(req.userId);
       if (!user) {

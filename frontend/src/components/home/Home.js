@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import classes from "./home.module.css"
-import { NavLink, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import axios from "axios";
-import Table from "../table/Table";
+import useFullPageLoader from "../../hooks/useFullPageLoader";
 
 const Home = () => {
+  const [loader, showLoader, hideLoader] = useFullPageLoader();
   const navigate = useNavigate();
   const [data, setData] = useState({});
 
   useEffect((e) => {
+    showLoader();
     let techStack = localStorage.getItem("access");
     if (!techStack) {
       navigate('/');
@@ -20,11 +22,12 @@ const Home = () => {
         }
       })
       .then((res) => {
+        hideLoader();
         setData(res.data.userData);
       })
       .catch((err) => {
       });
-  }, []);
+  }, [navigate]);
 
   const handleClick = (e) => {
     localStorage.removeItem("access");
@@ -40,7 +43,7 @@ const Home = () => {
       <div className="container">
         <div className={classes.box}>
           <div className={classes.left}>
-            <img src={data.imageUrl} alt="Profile Picture" className="img-fluid rounded mx-auto"></img>
+            <img src={data.imageUrl} alt="Profile" className="img-fluid rounded mx-auto"></img>
           </div>
           <div className={classes.right}>
             <h3>Email - {data.emailId}</h3>
@@ -51,8 +54,9 @@ const Home = () => {
         </div>
       </div>
       <footer className="footer fixed-bottom">
-        <p>Thanks to Join.</p>
+        <p>Thanks to Join, Created by Mukesh Buldak.</p>
       </footer>
+      {loader}
     </div>
   );
 };

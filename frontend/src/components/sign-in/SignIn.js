@@ -68,12 +68,12 @@ const SignIn = () => {
                         onChange={handleChange}
                         name="password"
                         required />
-                    <NavLink exact to="/">
+                    <NavLink to="/">
                         <button type="submit" className={classes["sign-in-button"]} onClick={handleChanges}>
                             Sign-In
                         </button>
                     </NavLink>
-                    <NavLink exact to="/singup">
+                    <NavLink to="/singup">
                         <button type="submit" className={classes["forgot-button"]}>
                             Don't have a Account, SignUp
                         </button>

@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import classes from "./sign-up.module.css";
 import { NavLink, useNavigate } from "react-router-dom";
-import Moment from 'moment';
-import axios from "axios"
-import { Form, Button, Row, Col } from "react-bootstrap";
+import axios from "axios";
 
 const SignUp = () => {
-  const [picMessage, setPicMessage] = useState();
   const [imageUrl, setPic] = useState();
   const navigate = useNavigate();
   const handleChanges = async (event) => {
@@ -63,7 +60,6 @@ const SignUp = () => {
   }
 
   const postDetails = (pics) => {
-    setPicMessage(null);
     if (pics.type === "image/jpeg" || pics.type === "image/png") {
       const data = new FormData();
       data.append("file", pics);
@@ -80,7 +76,7 @@ const SignUp = () => {
         .catch((err) => {
         });
     } else {
-      return setPicMessage("Please Select an Image");
+      return;
     }
   };
 
@@ -156,7 +152,7 @@ const SignUp = () => {
             />
 
             <input type="submit" value="Sign-Up" className="" onClick={handleChanges} />
-            <NavLink exact to="/">
+            <NavLink to="/">
               <input type="submit" value="have a Account, SignIn" className="" />
             </NavLink>
           </div>
