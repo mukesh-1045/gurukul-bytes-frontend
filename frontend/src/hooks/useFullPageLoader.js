@@ -6,8 +6,8 @@ const useFullPageLoader = () => {
 
   return [
     loading ? <FullPageLoader /> : null,
-    () => setLoading(true), //Show loader
-    () => setLoading(false) //Hide Loader
+    () => setLoading(true),
+    () => setLoading(false)
   ];
 };
 

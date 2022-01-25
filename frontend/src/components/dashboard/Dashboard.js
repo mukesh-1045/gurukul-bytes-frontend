@@ -64,7 +64,6 @@ const Home = () => {
 
     setTotalItems(computedComments.length);
 
-    //Sorting comments
     if (sorting.field) {
       const reversed = sorting.order === "asc" ? 1 : -1;
       computedComments = computedComments.sort(
@@ -73,7 +72,7 @@ const Home = () => {
       );
     }
 
-    //Current Page slice
+
     return computedComments.slice(
       (currentPage - 1) * ITEMS_PER_PAGE,
       (currentPage - 1) * ITEMS_PER_PAGE + ITEMS_PER_PAGE

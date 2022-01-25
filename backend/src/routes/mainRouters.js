@@ -10,7 +10,7 @@ const userController = require("../controllers/userController");
 
 
 app.use(cookieParser());
-
+// register route with validation check 
 app.post("/register",
   [
     check("dateOfBirth", "Please Enter a Valid firstName")
@@ -39,7 +39,7 @@ app.post("/register",
   registerController.saveUser
 );
 
-
+// login route with validation check 
 app.post("/login",
   [
     check("emailId", "Please enter a valid email").isEmail(),
@@ -50,8 +50,13 @@ app.post("/login",
   loginController.loginUser
 );
 
+// user info route with validation of JWT 
 app.get("/profile", validateToken, userController.getUser);
+
+// logout route with validation of JWT 
 app.get("/logout", validateToken, loginController.logout);
+
+// all user info route with validation of JWT 
 app.get("/getAllUser", validateToken, userController.getAllUser);
 
 module.exports = app;

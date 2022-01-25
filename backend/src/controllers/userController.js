@@ -1,9 +1,10 @@
 const users = require("../models/userInfo");
 
 module.exports = {
+  // function to send all user for admin login
   getAllUser: async (req, res) => {
     if (req.authenticated) {
-      const allUser = await users.find({ role: "user" });
+      const allUser = await users.find({ role: "user" });   // getting all user 
       if (!allUser) {
         res.status(201).send({ message: "Database is Empty", status: true });
       } else {
@@ -13,9 +14,11 @@ module.exports = {
       res.status(400).send({ error: "Not Authenticated", status: false });
     }
   },
+
+  // function for sending a single user info
   getUser: async (req, res) => {
     if (req.authenticated) {
-      const user = await users.findById(req.userId);
+      const user = await users.findById(req.userId);   // getting user data from db using users's email
       if (!user) {
         res.status(400).send({ error: "Cannot find a user with given ID", status: false });
       } else {

@@ -1,45 +1,45 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
-
+// user info modal stores all information regards a user
 var users = new schema({
-    firstName: {
+    firstName: {   // first name 
         type: String,
         required: true
     },
-    imageUrl: {
+    imageUrl: {    // profile picture url
         type: String
     },
-    lastName: {
+    lastName: {   // last name 
         type: String,
         required: true
     },
-    password: {
+    password: {  // hashed password
         type: String,
         required: true
     },
-    dateOfBirth: {
+    dateOfBirth: {   // date of birth 
         type: Date,
         required: true
     },
-    role: {
+    role: {   // role only admin or user
         type: String,
         required: true
     },
-    emailId: {
+    emailId: {  // email
         type: String,
         unique: true,
         required: true
     },
-    address: {
+    address: {  // address
         type: String,
         required: true
     },
-    gender: {
+    gender: {  // gender
         type: String,
         required: true
     },
-    userCount: {
+    userCount: { // concurrent login count 
         type: Number
     }
 },

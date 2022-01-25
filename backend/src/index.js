@@ -5,10 +5,12 @@ const cors = require("cors");
 const routers = require("./routes/mainRouters");
 const cookieParser = require("cookie-parser");
 
-dotenv.config();
+dotenv.config();  // accessing all env variables
 
 const app = express();
 
+
+// middlewares
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Methods", "*");
   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
@@ -27,13 +29,15 @@ app.use(cors({
 //routes
 app.use(routers);
 
+
+//DB connection
 mongoose.connect(process.env.MONGODB_URL).then(() => {
   console.log("Connected to MONGODB database");
 }).catch((err) => {
   console.log("Error occured in connection to db -" + err);
 });
 
-
+// starting server
 app.listen(process.env.PORT, () => {
   console.log("Backend server has started at " + process.env.PORT);
 });
