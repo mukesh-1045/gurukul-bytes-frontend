@@ -1,0 +1,47 @@
+header {
+	background-color: rgb(98, 98, 199);
+	color: aliceblue;
+	padding: 2%;
+}
+
+header h1 {
+	padding-left: 10%;
+}
+
+.logout {
+	color: aliceblue;
+	background-color: rgb(20, 20, 122);
+	border-radius: 10%;
+	align-items: right;
+	height: 5%;
+	width: fit-content;
+	position: fixed;
+	right: 10%;
+	top: 5%;
+}
+
+.box {
+	padding-top: 5%;
+	display: flex;
+	flex-direction: row;
+}
+
+.right {
+	margin-left: 15%;
+}
+
+.right h3 {
+	color: rgb(38, 218, 241);
+}
+
+footer {
+	text-align: center !important;
+	color: white;
+	background-color: black;
+}
+
+@media only screen and (max-width: 600px) {
+	footer {
+		display: none;
+	}
+}
