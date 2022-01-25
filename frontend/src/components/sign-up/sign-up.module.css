@@ -1,10 +1,17 @@
 .sign-up {
 	width: 350px;
 	height: 100%;
-	background-color: #f4f6ff;
+	background-color: #1d1f2b;
+	border-radius: 3%;
 	margin: 0% auto;
 }
-
+body {
+	margin: 0%;
+	background-color: rgb(241, 241, 241);
+}
+label {
+	color: white;
+}
 .sign-up .form input.submit {
 	background-color: #4054b2;
 	font-size: 22px;
@@ -35,6 +42,9 @@
 	font-size: 1rem;
 	border-radius: 8px;
 	box-shadow: 1px 1px 2px #bdbdbd;
+}
+p {
+	color: red;
 }
 
 .sign-up .form input:focus {

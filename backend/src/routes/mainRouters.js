@@ -13,7 +13,9 @@ app.use(cookieParser());
 
 app.post("/register",
   [
-    check("dateOfBirth", "Please Enter a Valid firstName"),
+    check("dateOfBirth", "Please Enter a Valid firstName")
+      .not()
+      .isEmpty(),
     check("firstName", "Please Enter a Valid firstName")
       .not()
       .isEmpty(),

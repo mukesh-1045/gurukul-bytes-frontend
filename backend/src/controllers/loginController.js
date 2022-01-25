@@ -14,7 +14,7 @@ module.exports = {
     const { emailId, password } = req.body;
     const user = await users.findOne({ emailId: emailId });
     if (!user) {
-      res.status(400).send({ error: "User doesn't exists", status: false });
+      res.status(201).send({ error: "User doesn't exists", status: false });
     } else {
       let userData = await users.findOne({ emailId: emailId });
       const dbPassword = userData.password;
@@ -33,7 +33,7 @@ module.exports = {
           res.status(201).send({ message: "loged in", status: true, role: userData.role, accesstoken: accessToken });
         }
       } else {
-        res.status(400).send({ error: "User email and password combination doesn't match", status: false });
+        res.status(201).send({ error: "User email and password combination doesn't match", status: false });
       }
     }
   },

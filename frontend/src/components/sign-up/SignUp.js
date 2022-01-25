@@ -4,11 +4,28 @@ import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const SignUp = () => {
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [alertMsg, setAlertMsg] = useState("");
+  const [form, setForm] = useState({
+    emailId: "",
+    password: "",
+    firstName: "",
+    role: "user",
+    lastName: "",
+    dateOfBirth: "",
+    gender: "",
+    address: ""
+  });
+  const [formErrors, setFormErrors] = useState({});
   const [imageUrl, setPic] = useState();
   const navigate = useNavigate();
-  const handleChanges = async (event) => {
+  const handleSubmit = async (event) => {
 
     event.preventDefault();
+    setFormErrors(validate(form));
+    if (!isSubmit) {
+      return;
+    }
     setForm((prv) => {
       return {
         ...prv,
@@ -19,10 +36,13 @@ const SignUp = () => {
     axios
       .post(`${process.env.REACT_APP_BACKEND_URL}/register`, { ...form, imageUrl })
       .then((res) => {
+        if (!res.data.status) {
+          return setAlertMsg(res.data.message);
+        }
         navigate('/');
       })
       .catch((err) => {
-        alert("Please Enter Correct Data");
+        setAlertMsg("Please Enter Correct Data");
       });
 
     setForm({
@@ -35,18 +55,9 @@ const SignUp = () => {
       gender: "",
       address: ""
     });
+    setFormErrors({});
   }
 
-  const [form, setForm] = useState({
-    emailId: "",
-    password: "",
-    firstName: "",
-    role: "user",
-    lastName: "",
-    dateOfBirth: "",
-    gender: "",
-    address: ""
-  });
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -80,20 +91,77 @@ const SignUp = () => {
     }
   };
 
+  const validate = (values) => {
+    let check = true;
+    const errors = {};
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    if (!values.firstName) {
+      errors.firstName = "First Name is required!";
+      setIsSubmit(false);
+      check = false;
+    }
+    if (!values.lastName) {
+      errors.lastName = "Last Name is required!";
+      setIsSubmit(false);
+      check = false;
+    }
+    if (!values.gender) {
+      errors.gender = "Gender is required!";
+      setIsSubmit(false);
+      check = false;
+    }
+    if (!values.address) {
+      errors.address = "Address is required!";
+      setIsSubmit(false);
+      check = false;
+    }
+    if (!values.dateOfBirth) {
+      errors.dateOfBirth = "Date of Birth is required!";
+      setIsSubmit(false);
+      check = false;
+    }
+    if (!values.emailId) {
+      errors.emailId = "Email is required!";
+      setIsSubmit(false);
+      check = false;
+    } else if (!regex.test(values.emailId)) {
+      errors.emailId = "This is not a valid email format!";
+      setIsSubmit(false);
+      check = false;
+    }
+    if (!values.password) {
+      errors.password = "Password is required";
+      setIsSubmit(false);
+      check = false;
+    } else if (values.password.length < 6) {
+      errors.password = "Password must be more than 6 characters";
+      setIsSubmit(false);
+      check = false;
+    }
+    if (check) {
+      setIsSubmit(true);
+    }
+    return errors;
+  };
+
 
   return (
     <div>
-      <form>
+      <form className="mt-4">
         <div className={classes["sign-up"]}>
           <div className={classes.form}>
+            {
+              alertMsg !== "" && <p>{alertMsg}</p>
+            }
             <input
               type="text"
               value={form.emailId}
               onChange={handleChange}
               name="emailId"
               placeholder="Email"
-              required
+              required="required"
             />
+            <p>{formErrors.emailId}</p>
             <input
               type="text"
               value={form.firstName}
@@ -102,6 +170,7 @@ const SignUp = () => {
               placeholder="First Name"
               required
             />
+            <p>{formErrors.firstName}</p>
             <input
               type="text"
               value={form.lastName}
@@ -110,6 +179,7 @@ const SignUp = () => {
               placeholder="Last Name"
               required
             />
+            <p>{formErrors.lastName}</p>
             <input
               type="text"
               value={form.gender}
@@ -118,6 +188,7 @@ const SignUp = () => {
               placeholder="Gender"
               required
             />
+            <p>{formErrors.gender}</p>
             <input
               type="text"
               value={form.address}
@@ -126,6 +197,7 @@ const SignUp = () => {
               placeholder="Address"
               required
             />
+            <p>{formErrors.address}</p>
             <input
               type="date"
               value={form.dateOfBirth}
@@ -134,24 +206,25 @@ const SignUp = () => {
               placeholder="Date Of Birth"
               required
             />
-
+            <p>{formErrors.dateOfBirth}</p>
             <input
               type="password"
               value={form.password}
               onChange={handleChange}
               name="password"
               placeholder="Password"
-              required />
-
-            <label>Change Profile Picture</label>
+              required
+            />
+            <p>{formErrors.password}</p>
+            <label className="form-group">Add Profile Picture</label>
             <input
+              className="form-group"
               onChange={(e) => postDetails(e.target.files[0])}
               id="custom-file"
               type="file"
               accept="image/png, image/jpeg"
             />
-
-            <input type="submit" value="Sign-Up" className="" onClick={handleChanges} />
+            <input type="submit" value="Sign-Up" className="" onClick={handleSubmit} />
             <NavLink to="/">
               <input type="submit" value="have a Account, SignIn" className="" />
             </NavLink>

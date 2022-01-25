@@ -18,7 +18,7 @@ module.exports = {
     user.save().then((result) => {
       res.status(201).send({ message: "User is saved ", status: true });
     }).catch((err) => {
-      res.status(400).send({ message: "User failed to be saved cause email already exists", status: false });
+      res.status(201).send({ message: "User failed to be saved cause email already exists", status: false });
     });
   },
 }
